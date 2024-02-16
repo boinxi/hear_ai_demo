@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "131234867224",
+    "project_id": "hear-ai-demo",
+    "storage_bucket": "hear-ai-demo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131234867224:android:44bce455312c4aa2063b6d",
+        "android_client_info": {
+          "package_name": "com.example.hear_ai_demo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxUsYKvqnL3JLVWTIkMaGvxY41k-IZEq4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

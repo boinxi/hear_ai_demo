@@ -17,7 +17,11 @@ dev_dependencies:
   go_router: ^13.2.0
   sqflite: ^2.3.2
   flutter_riverpod: ^2.4.10
-
+  firebase_core: ^2.25.4
+  firebase_storage: ^11.6.5
+  cloud_firestore: ^4.15.4
+  image_picker: ^1.0.7
+  uuid: ^4.3.2
 
 dependency_overrides:
   material_color_utilities: ^0.8.0
