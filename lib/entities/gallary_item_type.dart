@@ -1,0 +1,4 @@
+enum GalleryItemType {
+  image,
+  video,
+}

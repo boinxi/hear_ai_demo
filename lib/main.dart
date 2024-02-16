@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hear_ai_demo/router/router.dart';
 
-import 'state/themeProvider.dart';
+import 'state/theme_provider.dart';
 
 void main() {
   runApp(const ProviderScope(child: MainApp()));
