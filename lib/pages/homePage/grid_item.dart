@@ -8,15 +8,13 @@ class GridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Card(
-        child: Column(
-          children: [
-            Text(item.id?.toString() ?? "no id"),
-            Expanded(child: Image.network(item.mediaUrl)),
-            Text(item.description),
-          ],
-        ),
+    return Card(
+      child: Column(
+        children: [
+          Text(item.id?.toString() ?? "no id"),
+          Expanded(child: Image.network(item.mediaUrl)),
+          Text(item.description),
+        ],
       ),
     );
   }
