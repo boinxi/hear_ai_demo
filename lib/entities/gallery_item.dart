@@ -1,4 +1,4 @@
-import 'package:hear_ai_demo/entities/gallary_item_type.dart';
+import 'package:hear_ai_demo/entities/gallery_item_type.dart';
 
 class GalleryItem {
   final int? id;

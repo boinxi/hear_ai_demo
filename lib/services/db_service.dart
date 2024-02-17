@@ -1,7 +1,9 @@
-import 'package:hear_ai_demo/entities/gallary_item.dart';
+import 'package:hear_ai_demo/data/gallery_items_repository.dart';
+import 'package:hear_ai_demo/entities/gallery_item.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DBService {
+
+class DBService implements GalleryItemsRepository {
   static const String _dbName = 'myDb.db';
   static const String _tableName = 'galleryItems';
   static const int _dbVersion = 1;
@@ -28,22 +30,26 @@ class DBService {
     ''');
   }
 
+  @override
   Future<int> insert(GalleryItem item) async {
     final db = await _getDatabase();
     final id = await db.insert(_tableName, item.toMap());
     return id;
   }
 
+  @override
   Future<int> update(GalleryItem item) async {
     final db = await _getDatabase();
     return await db.update(_tableName, item.toMap(), where: 'id = ?', whereArgs: [item.id]);
   }
 
+  @override
   Future<int> delete(GalleryItem item) async {
     final db = await _getDatabase();
     return await db.delete(_tableName, where: 'id = ?', whereArgs: [item.id]);
   }
 
+  @override
   Future<List<GalleryItem>> getAllItems() async {
     final db = await _getDatabase();
     final List<Map<String, dynamic>> maps = await db.query(_tableName);

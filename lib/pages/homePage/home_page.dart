@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hear_ai_demo/components/theme_switch.dart';
-import 'package:hear_ai_demo/pages/homePage/grid_item.dart';
-import 'package:hear_ai_demo/state/home_page_providor.dart';
+import 'package:hear_ai_demo/components/media_preview.dart';
+import 'package:hear_ai_demo/state/home_page_provider.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,7 +20,10 @@ class HomePage extends ConsumerWidget {
       body: GridView.builder(
         itemCount: galleryState.items.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-        itemBuilder: (context, index) => GridItem(item: galleryState.items[index]),
+        itemBuilder: (context, index) => MediaPreview(
+          mediaUrl: galleryState.items[index].mediaUrl,
+          onTap: () => goToView(context, galleryState.items[index].id!),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
@@ -31,5 +34,9 @@ class HomePage extends ConsumerWidget {
 
   void goToCreate(context) {
     GoRouter.of(context).push('/create');
+  }
+
+  void goToView(BuildContext context, int id) {
+    GoRouter.of(context).push('/view/$id');
   }
 }
