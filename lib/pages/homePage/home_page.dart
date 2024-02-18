@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hear_ai_demo/components/theme_switch.dart';
 import 'package:hear_ai_demo/components/media_preview.dart';
-import 'package:hear_ai_demo/state/home_page_provider.dart';
+import 'package:hear_ai_demo/components/theme_switch.dart';
+import 'package:hear_ai_demo/state/providers.dart';
+import 'package:hear_ai_demo/state/state/home_page_state.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);

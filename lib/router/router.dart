@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:hear_ai_demo/pages/create_gallery_item_page.dart';
+import 'package:hear_ai_demo/pages/create_edit_item_page.dart';
 import 'package:hear_ai_demo/pages/homePage/home_page.dart';
 import 'package:hear_ai_demo/pages/media_view_page.dart';
 
@@ -11,7 +11,14 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/create',
-      builder: (context, state) => CreateGalleryItemPage(),
+      builder: (context, state) => CreateEditItemPage(),
+    ),
+    GoRoute(
+      path: '/create/:id',
+      builder: (context, state) {
+        final int? toEditId = state.pathParameters.containsKey('id') ? int.parse(state.pathParameters['id']!) : null;
+        return CreateEditItemPage(toEditId: toEditId);
+      },
     ),
     GoRoute(
       path: '/view/:id',
@@ -21,4 +28,4 @@ final router = GoRouter(
       },
     ),
   ],
-);
+); // TODO: add 404 page and error page

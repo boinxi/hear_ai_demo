@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hear_ai_demo/state/theme_provider.dart';
+import 'package:hear_ai_demo/state/providers.dart';
 
 class ThemeSwitch extends ConsumerWidget {
   const ThemeSwitch({Key? key}) : super(key: key);

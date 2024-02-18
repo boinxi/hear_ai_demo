@@ -1,9 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hear_ai_demo/router/router.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:hear_ai_demo/state/providers.dart';
+
 import 'firebase_options.dart';
-import 'state/theme_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
