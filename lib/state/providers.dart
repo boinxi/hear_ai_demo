@@ -14,14 +14,15 @@ import 'package:hear_ai_demo/state/state/home_page_state.dart';
 final homePageStateProvider = StateNotifierProvider<HomePageStateNotifier, HomePageState>(
   (ref) {
     GalleryItemsRepository itemsRepository = DBService();
-    return HomePageStateNotifier(itemsRepository)..loadItems();
+    StorageBucket storageBucket = ref.watch(storageBucketProvider);
+    return HomePageStateNotifier(itemsRepository, storageBucket)..loadItems();
   },
 );
 
 final createGalleryItemPageProvider = StateNotifierProvider.autoDispose.family<CreateEditItemPageStateNotifier, CreateGalleryItemPageState, int?>(
   // TODO: check if autoDispose is needed
   (ref, int? id) {
-    StorageBucket storageBucket = FirebaseService();
+    StorageBucket storageBucket = ref.read(storageBucketProvider);
     if (id == null) return CreateEditItemPageStateNotifier(storageBucket, null);
 
     GalleryItem itemToEdit = ref.read(homePageStateProvider).items.firstWhere((element) => element.id == id);
@@ -30,3 +31,5 @@ final createGalleryItemPageProvider = StateNotifierProvider.autoDispose.family<C
 );
 
 final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>((ref) => ThemeNotifier());
+
+final storageBucketProvider = Provider<StorageBucket>((ref) => FirebaseService());

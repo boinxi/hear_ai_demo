@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hear_ai_demo/components/image_with_err.dart';
 import 'package:hear_ai_demo/components/theme_switch.dart';
 import 'package:hear_ai_demo/entities/gallery_item.dart';
 import 'package:hear_ai_demo/state/providers.dart';
@@ -90,7 +91,7 @@ class CreateEditItemPage extends ConsumerWidget {
     return Consumer(
       builder: (context, ref, child) {
         File? selectedFile = ref.watch(createGalleryItemPageProvider(toEditId).select((value) => value.selectedFile));
-        String? toEditMediaUrl = ref.watch(createGalleryItemPageProvider(toEditId).select((value) => value.itemToEdit?.mediaUrl));
+        String? toEditFileName = ref.watch(createGalleryItemPageProvider(toEditId).select((value) => value.itemToEdit?.fileName));
         return GestureDetector(
           onTap: () => ref.read(createGalleryItemPageProvider(toEditId).notifier).getImage(),
           child: SizedBox(
@@ -108,11 +109,11 @@ class CreateEditItemPage extends ConsumerWidget {
                         fit: BoxFit.fitWidth,
                       ),
                     )
-                  : toEditMediaUrl != null
+                  : toEditFileName != null
                       ? ClipRRect(
                           borderRadius: cardBorderRadius,
-                          child: Image.network(
-                            toEditMediaUrl,
+                          child: ImageWithErr(
+                            fileName: toEditFileName,
                             fit: BoxFit.fitWidth,
                           ),
                         )
@@ -126,7 +127,7 @@ class CreateEditItemPage extends ConsumerWidget {
 
   void _submitForm(BuildContext context, WidgetRef ref) async {
     CreateGalleryItemPageState state = ref.read(createGalleryItemPageProvider(toEditId));
-    if (state.selectedFile == null && state.itemToEdit?.mediaUrl == null) {
+    if (state.selectedFile == null && state.itemToEdit?.fileName == null) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please select a media file')));
       return;
     }

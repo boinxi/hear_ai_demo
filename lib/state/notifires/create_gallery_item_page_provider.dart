@@ -33,7 +33,7 @@ class CreateEditItemPageStateNotifier extends StateNotifier<CreateGalleryItemPag
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
-      state = state.copyWith(itemToEdit: state.itemToEdit?.copyWith(mediaUrl: null));
+      state = state.copyWith(itemToEdit: state.itemToEdit?.copyWith(fileName: null));
       setSelectedFile(File(pickedFile.path));
     }
   }
@@ -41,34 +41,34 @@ class CreateEditItemPageStateNotifier extends StateNotifier<CreateGalleryItemPag
   Future<void> createOrUpdateItem(WidgetRef ref) async {
     // TODO: check if i acn get rid of ref
 
-    String? path = state.itemToEdit?.mediaUrl;
+    String? fileName = state.itemToEdit?.fileName;
     if (state.selectedFile != null) {
-      // TODO: if there is a media url to be deleted, delete it
       setUploadProgress(0);
 
-      path = await _storageBucket.uploadMedia(
+      fileName = await _storageBucket.uploadMedia(
         File(state.selectedFile!.path),
         onProgress: setUploadProgress,
       );
       setUploadProgress(null);
+      if (state.itemToEdit?.fileName != null) _storageBucket.deleteMedia(state.itemToEdit!.fileName);
     }
 
     if (state.itemToEdit != null) {
       GalleryItem updatedItem = state.itemToEdit!.copyWith(
         description: state.descriptionController.text,
-        mediaUrl: path,
+        fileName: fileName,
         time: DateTime.now(),
       );
+
       await ref.read(homePageStateProvider.notifier).updateGalleryItem(updatedItem);
     } else {
       GalleryItem newItem = GalleryItem(
         description: state.descriptionController.text,
-        mediaUrl: path!,
+        fileName: fileName!,
         time: DateTime.now(),
         mediaType: GalleryItemType.image,
       );
       await ref.read(homePageStateProvider.notifier).addGalleryItem(newItem);
     }
   }
-
 }

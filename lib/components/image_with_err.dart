@@ -1,24 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hear_ai_demo/state/providers.dart';
 
-class ImageWithErr extends StatelessWidget {
-  final String mediaUrl;
+class ImageWithErr extends ConsumerWidget {
+  final String fileName;
   final bool centerLoading;
   final BoxFit fit;
 
   const ImageWithErr({
     Key? key,
-    required this.mediaUrl,
+    required this.fileName,
     this.centerLoading = false,
     this.fit = BoxFit.cover,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Image.network(
-      mediaUrl,
-      fit: fit,
-      errorBuilder: errBuilder,
-      loadingBuilder: loadingBuilder,
+  Widget build(BuildContext context, WidgetRef ref) {
+    return FutureBuilder(
+      builder: (context, AsyncSnapshot<String> snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        return Image.network(
+          snapshot.data!,
+          fit: fit,
+          errorBuilder: errBuilder,
+          loadingBuilder: loadingBuilder,
+        );
+      },
+      future: ref.watch(storageBucketProvider).getPublicUrl(fileName),
     );
   }
 

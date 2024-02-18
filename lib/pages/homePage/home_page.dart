@@ -22,7 +22,7 @@ class HomePage extends ConsumerWidget {
         itemCount: galleryState.items.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         itemBuilder: (context, index) => MediaPreview(
-          mediaUrl: galleryState.items[index].mediaUrl,
+          fileName: galleryState.items[index].fileName,
           onTap: () => goToView(context, galleryState.items[index].id!),
         ),
       ),

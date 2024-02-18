@@ -18,6 +18,7 @@ class MediaViewPage extends ConsumerWidget {
         title: Text('Viewing item $itemId'),
         actions: [
           buildEditButton(context),
+          buildDeleteButton(context, ref, galleryItem),
         ],
       ),
       body: Center(
@@ -28,7 +29,7 @@ class MediaViewPage extends ConsumerWidget {
             Expanded(
               child: Align(
                 alignment: Alignment.center,
-                child: ImageWithErr(mediaUrl: galleryItem.mediaUrl, fit: BoxFit.contain),
+                child: ImageWithErr(fileName: galleryItem.fileName, fit: BoxFit.contain),
               ),
             ),
             Padding(
@@ -64,5 +65,21 @@ class MediaViewPage extends ConsumerWidget {
       router.pop();
     }
     router.push('/create/$itemId');
+  }
+
+  IconButton buildDeleteButton(BuildContext context, WidgetRef ref, GalleryItem galleryItem) {
+    return IconButton(
+      icon: const Icon(Icons.delete),
+      onPressed: () => onDeletePressed(context, ref, galleryItem),
+    );
+  }
+
+  void onDeletePressed(BuildContext context, WidgetRef ref, GalleryItem galleryItem) async {
+    final router = GoRouter.of(context);
+    if (router.canPop()) {
+      router.pop();
+    }
+
+    await ref.read(homePageStateProvider.notifier).deleteGalleryItem(galleryItem);
   }
 }

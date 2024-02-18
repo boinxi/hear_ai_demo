@@ -1,12 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hear_ai_demo/data/gallery_items_repository.dart';
+import 'package:hear_ai_demo/data/storage_bucket.dart';
 import 'package:hear_ai_demo/entities/gallery_item.dart';
 import 'package:hear_ai_demo/state/state/home_page_state.dart';
 
 class HomePageStateNotifier extends StateNotifier<HomePageState> {
   final GalleryItemsRepository _repository;
+  final StorageBucket _storageBucket;
 
-  HomePageStateNotifier(this._repository) : super(HomePageState());
+  HomePageStateNotifier(this._repository, this._storageBucket) : super(HomePageState());
 
   Future<void> loadItems() async {
     try {
@@ -31,5 +33,12 @@ class HomePageStateNotifier extends StateNotifier<HomePageState> {
       List<GalleryItem> updatedItems = List<GalleryItem>.from(state.items)..[itemIndex] = item;
       state = state.copyWith(items: updatedItems);
     }
+  }
+
+  Future<void> deleteGalleryItem(GalleryItem item) async {
+    await _repository.delete(item);
+    await _storageBucket.deleteMedia(item.fileName);
+    final List<GalleryItem> newList = List<GalleryItem>.from(state.items)..remove(item);
+    state = state.copyWith(items: newList);
   }
 }

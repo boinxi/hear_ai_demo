@@ -3,14 +3,14 @@ import 'package:hear_ai_demo/entities/gallery_item_type.dart';
 class GalleryItem {
   final int? id;
   final String description;
-  final String mediaUrl;
+  final String fileName;
   final DateTime time;
   final GalleryItemType mediaType;
 
   GalleryItem({
     this.id,
     required this.description,
-    required this.mediaUrl,
+    required this.fileName,
     required this.time,
     required this.mediaType,
   });
@@ -19,7 +19,7 @@ class GalleryItem {
     return {
       'id': id,
       'description': description,
-      'mediaUrl': mediaUrl,
+      'fileName': fileName,
       'time': time.millisecondsSinceEpoch,
       'mediaType': mediaType.index,
     };
@@ -29,7 +29,7 @@ class GalleryItem {
     return GalleryItem(
       id: map['id'] as int,
       description: map['description'] as String,
-      mediaUrl: map['mediaUrl'] as String,
+      fileName: map['fileName'] as String,
       time: DateTime.fromMillisecondsSinceEpoch(map['time']),
       mediaType: GalleryItemType.values[map['mediaType'] as int],
     );
@@ -38,14 +38,14 @@ class GalleryItem {
   GalleryItem copyWith({
     int? id,
     String? description,
-    String? mediaUrl,
+    String? fileName,
     DateTime? time,
     GalleryItemType? mediaType,
   }) {
     return GalleryItem(
       id: id ?? this.id,
       description: description ?? this.description,
-      mediaUrl: mediaUrl ?? this.mediaUrl,
+      fileName: fileName ?? this.fileName,
       time: time ?? this.time,
       mediaType: mediaType ?? this.mediaType,
     );

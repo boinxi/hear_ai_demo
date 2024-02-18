@@ -3,9 +3,9 @@ import 'package:hear_ai_demo/components/image_with_err.dart';
 
 class MediaPreview extends StatelessWidget {
   final VoidCallback? onTap;
-  final String mediaUrl;
+  final String fileName;
 
-  const MediaPreview({Key? key, required this.mediaUrl, this.onTap}) : super(key: key);
+  const MediaPreview({Key? key, required this.fileName, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class MediaPreview extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: cardBorderRadius),
         child: ClipRRect(
           borderRadius: cardBorderRadius,
-          child: ImageWithErr(mediaUrl: mediaUrl, centerLoading: true),
+          child: ImageWithErr(fileName: fileName, centerLoading: true),
         ),
       ),
     );

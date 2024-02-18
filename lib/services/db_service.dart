@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 
 class DBService implements GalleryItemsRepository {
-  static const String _dbName = 'myDb.db';
+  static const String _dbName = 'myDb2.db';
   static const String _tableName = 'galleryItems';
   static const int _dbVersion = 1;
 
@@ -23,7 +23,7 @@ class DBService implements GalleryItemsRepository {
       CREATE TABLE $_tableName (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         description TEXT NOT NULL,
-        mediaUrl TEXT NOT NULL,
+        fileName TEXT NOT NULL,
         time INTEGER NOT NULL,
         mediaType INTEGER NOT NULL
       )
