@@ -33,7 +33,7 @@ class MediaPreview extends StatelessWidget {
       return VideoPlayerWrapper(isNetworkSource: isNetworkSource, uri: uri);
     }
     if (isNetworkSource) {
-      return ImageWithErr(fileName: uri, fit: BoxFit.cover);
+      return ImageWithErr(publicUrl: uri, fit: BoxFit.cover);
     } else {
       return Image.file(File(uri), fit: BoxFit.fitWidth);
     }

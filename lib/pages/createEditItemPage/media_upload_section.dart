@@ -28,7 +28,7 @@ class MediaUploadSection extends ConsumerWidget {
 
   buildPreview(WidgetRef ref) {
     CreateGalleryItemPageState state = ref.watch(createGalleryItemPageProvider(toEditId));
-    final String? uri = state.selectedFile?.path ?? state.itemToEdit?.fileName;
+    final String? uri = state.selectedFile?.path ?? state.itemToEdit?.publicUrl;
 
     if (uri == null) return const Card(child: Center(child: Text('Tap to select media')));
 

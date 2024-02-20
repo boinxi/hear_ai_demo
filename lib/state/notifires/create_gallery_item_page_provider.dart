@@ -64,6 +64,7 @@ class CreateEditItemPageStateNotifier extends StateNotifier<CreateGalleryItemPag
 
   Future<void> createOrUpdateItem(WidgetRef ref) async {
     String? fileName = state.itemToEdit?.fileName;
+    String? publicUrl = state.itemToEdit?.publicUrl;
     if (state.selectedFile != null) {
       setUploadProgress(0);
 
@@ -72,6 +73,8 @@ class CreateEditItemPageStateNotifier extends StateNotifier<CreateGalleryItemPag
         onProgress: setUploadProgress,
         onError: setError,
       );
+      publicUrl = await _storageBucket.getPublicUrl(fileName);
+
       setUploadProgress(null);
       if (state.itemToEdit?.fileName != null) _storageBucket.deleteMedia(state.itemToEdit!.fileName);
     }
@@ -80,6 +83,7 @@ class CreateEditItemPageStateNotifier extends StateNotifier<CreateGalleryItemPag
       GalleryItem updatedItem = state.itemToEdit!.copyWith(
         description: state.descriptionController.text,
         fileName: fileName,
+        publicUrl: publicUrl,
         mediaType: state.selectedType ?? state.itemToEdit!.mediaType,
         time: DateTime.now(),
       );
@@ -91,6 +95,7 @@ class CreateEditItemPageStateNotifier extends StateNotifier<CreateGalleryItemPag
         fileName: fileName!,
         time: DateTime.now(),
         mediaType: state.selectedType!,
+        publicUrl: publicUrl!,
       );
       await ref.read(homePageStateProvider.notifier).addGalleryItem(newItem);
     }

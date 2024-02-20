@@ -36,8 +36,7 @@ class _VideoPlayerWrapperState extends ConsumerState<VideoPlayerWrapper> {
 
   void initPlayer() async {
     if (widget.isNetworkSource) {
-      String videoPublicUrl = await ref.read(storageBucketProvider).getPublicUrl(widget.uri);
-      _controller = VideoPlayerController.networkUrl(Uri.parse(videoPublicUrl));
+      _controller = VideoPlayerController.networkUrl(Uri.parse(widget.uri));
     } else {
       _controller = VideoPlayerController.file(File(widget.uri));
     }
@@ -47,5 +46,11 @@ class _VideoPlayerWrapperState extends ConsumerState<VideoPlayerWrapper> {
       setState(() {});
       _controller!.play();
     }
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
   }
 }

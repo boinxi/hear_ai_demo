@@ -4,6 +4,7 @@ class GalleryItem {
   final int? id;
   final String description;
   final String fileName;
+  final String publicUrl;
   final DateTime time;
   final GalleryItemType mediaType;
 
@@ -13,6 +14,7 @@ class GalleryItem {
     required this.fileName,
     required this.time,
     required this.mediaType,
+    required this.publicUrl,
   });
 
   Map<String, dynamic> toMap() {
@@ -22,6 +24,7 @@ class GalleryItem {
       'fileName': fileName,
       'time': time.millisecondsSinceEpoch,
       'mediaType': mediaType.index,
+      'publicUrl': publicUrl,
     };
   }
 
@@ -32,6 +35,7 @@ class GalleryItem {
       fileName: map['fileName'] as String,
       time: DateTime.fromMillisecondsSinceEpoch(map['time']),
       mediaType: GalleryItemType.values[map['mediaType'] as int],
+      publicUrl: map['publicUrl'] as String,
     );
   }
 
@@ -41,6 +45,7 @@ class GalleryItem {
     String? fileName,
     DateTime? time,
     GalleryItemType? mediaType,
+    String? publicUrl,
   }) {
     return GalleryItem(
       id: id ?? this.id,
@@ -48,6 +53,7 @@ class GalleryItem {
       fileName: fileName ?? this.fileName,
       time: time ?? this.time,
       mediaType: mediaType ?? this.mediaType,
+      publicUrl: publicUrl ?? this.publicUrl,
     );
   }
 }

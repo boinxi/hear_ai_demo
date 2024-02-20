@@ -29,7 +29,7 @@ class MediaViewPage extends ConsumerWidget {
             Expanded(
               child: Align(
                 alignment: Alignment.center,
-                child: MediaPreview(isNetworkSource: true, type: galleryItem.mediaType, uri: galleryItem.fileName),
+                child: MediaPreview(isNetworkSource: true, type: galleryItem.mediaType, uri: galleryItem.publicUrl),
               ),
             ),
             Padding(
