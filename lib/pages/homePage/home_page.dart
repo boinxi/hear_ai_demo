@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hear_ai_demo/components/media_preview.dart';
+import 'package:hear_ai_demo/components/media/media_preview.dart';
 import 'package:hear_ai_demo/components/theme_switch.dart';
 import 'package:hear_ai_demo/state/providers.dart';
 import 'package:hear_ai_demo/state/state/home_page_state.dart';
@@ -12,7 +12,6 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final HomePageState galleryState = ref.watch(homePageStateProvider);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
@@ -21,10 +20,16 @@ class HomePage extends ConsumerWidget {
       body: GridView.builder(
         itemCount: galleryState.items.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-        itemBuilder: (context, index) => MediaPreview(
-          fileName: galleryState.items[index].fileName,
-          onTap: () => goToView(context, galleryState.items[index].id!),
-        ),
+        itemBuilder: (context, index) {
+          var item = galleryState.items[index];
+          return MediaPreview(
+            onTap: () => goToView(context, item.id!),
+            key: ValueKey(item.id),
+            uri: item.fileName,
+            isNetworkSource: true,
+            type: item.mediaType,
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),

@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:hear_ai_demo/pages/create_edit_item_page.dart';
+import 'package:hear_ai_demo/pages/createEditItemPage/create_edit_item_page.dart';
 import 'package:hear_ai_demo/pages/homePage/home_page.dart';
 import 'package:hear_ai_demo/pages/media_view_page.dart';
 

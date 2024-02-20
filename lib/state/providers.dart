@@ -20,7 +20,6 @@ final homePageStateProvider = StateNotifierProvider<HomePageStateNotifier, HomeP
 );
 
 final createGalleryItemPageProvider = StateNotifierProvider.autoDispose.family<CreateEditItemPageStateNotifier, CreateGalleryItemPageState, int?>(
-  // TODO: check if autoDispose is needed
   (ref, int? id) {
     StorageBucket storageBucket = ref.read(storageBucketProvider);
     if (id == null) return CreateEditItemPageStateNotifier(storageBucket, null);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hear_ai_demo/components/image_with_err.dart';
+import 'package:hear_ai_demo/components/media/media_preview.dart';
 import 'package:hear_ai_demo/entities/gallery_item.dart';
 import 'package:hear_ai_demo/state/providers.dart';
 
@@ -29,7 +29,7 @@ class MediaViewPage extends ConsumerWidget {
             Expanded(
               child: Align(
                 alignment: Alignment.center,
-                child: ImageWithErr(fileName: galleryItem.fileName, fit: BoxFit.contain),
+                child: MediaPreview(isNetworkSource: true, type: galleryItem.mediaType, uri: galleryItem.fileName),
               ),
             ),
             Padding(
