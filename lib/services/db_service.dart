@@ -1,7 +1,7 @@
 import 'package:hear_ai_demo/data/gallery_items_repository.dart';
 import 'package:hear_ai_demo/entities/gallery_item.dart';
+import 'package:hear_ai_demo/entities/media_filter.dart';
 import 'package:sqflite/sqflite.dart';
-
 
 class DBService implements GalleryItemsRepository {
   static const String _dbName = 'myDb5.db';
@@ -51,9 +51,20 @@ class DBService implements GalleryItemsRepository {
   }
 
   @override
-  Future<List<GalleryItem>> getAllItems() async {
+  Future<List<GalleryItem>> getAllItems({MediaFilter? filter}) async {
     final db = await _getDatabase();
-    final List<Map<String, dynamic>> maps = await db.query(_tableName);
+    List<Map<String, dynamic>> maps;
+
+    if (filter == MediaFilter.none) {
+      maps = await db.query(_tableName);
+    } else {
+      int typeFilter = filter == MediaFilter.image ? 0 : 1;
+      maps = await db.query(
+        _tableName,
+        where: 'mediaType = ?',
+        whereArgs: [typeFilter],
+      );
+    }
     return maps.map((map) => GalleryItem.fromMap(map)).toList();
   }
 }

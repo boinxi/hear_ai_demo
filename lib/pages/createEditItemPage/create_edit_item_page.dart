@@ -17,7 +17,7 @@ class CreateEditItemPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final GalleryItem? itemToEdit = ref.watch(createGalleryItemPageProvider(toEditId).select((value) => value.itemToEdit));
+    final GalleryItem? itemToEdit = ref.watch(createEditItemPageProvider(toEditId).select((value) => value.itemToEdit));
 
     return Scaffold(
       appBar: AppBar(
@@ -53,7 +53,7 @@ class CreateEditItemPage extends ConsumerWidget {
   Widget buildDescriptionField(WidgetRef ref) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: TextFormField(
-          controller: ref.read(createGalleryItemPageProvider(toEditId)).descriptionController,
+          controller: ref.read(createEditItemPageProvider(toEditId)).descriptionController,
           minLines: 1,
           maxLines: 5,
           decoration: const InputDecoration(labelText: 'Description'),
@@ -62,7 +62,7 @@ class CreateEditItemPage extends ConsumerWidget {
       );
 
   void tryUpload(BuildContext context, WidgetRef ref) async {
-    CreateGalleryItemPageState state = ref.read(createGalleryItemPageProvider(toEditId));
+    CreateEditGalleryItemPageState state = ref.read(createEditItemPageProvider(toEditId));
     if (state.selectedFile == null && state.itemToEdit?.fileName == null) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please select a media file')));
       return;
@@ -70,7 +70,7 @@ class CreateEditItemPage extends ConsumerWidget {
 
     if (!_formKey.currentState!.validate()) return;
 
-    await ref.read(createGalleryItemPageProvider(toEditId).notifier).createOrUpdateItem(ref);
+    await ref.read(createEditItemPageProvider(toEditId).notifier).createOrUpdateItem(ref);
     if (context.mounted) {
       GoRouter.of(context).pop();
     }

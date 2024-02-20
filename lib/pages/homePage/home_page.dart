@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hear_ai_demo/components/media/media_preview.dart';
 import 'package:hear_ai_demo/components/theme_switch.dart';
 import 'package:hear_ai_demo/entities/gallery_item.dart';
+import 'package:hear_ai_demo/pages/homePage/media_type_filter_picker.dart';
 import 'package:hear_ai_demo/state/providers.dart';
 import 'package:hear_ai_demo/state/state/home_page_state.dart';
 
@@ -14,10 +15,13 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final HomePageState galleryState = ref.watch(homePageStateProvider);
     return Scaffold(
-      // TODO: add loading and error handling
       appBar: AppBar(
         title: const Text('Home'),
-        actions: const [ThemeSwitch()],
+        actions: const [
+          MediaTypeFilterPicker(),
+          ThemeSwitch(),
+          SizedBox(width: 10),
+        ],
       ),
       body: galleryState.error != null
           ? buildError(galleryState.error!)

@@ -11,7 +11,7 @@ class UploadStateIndicator extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    double? uploadProgress = ref.watch(createGalleryItemPageProvider(toEditId).select((state) => state.uploadProgress));
+    double? uploadProgress = ref.watch(createEditItemPageProvider(toEditId).select((state) => state.uploadProgress));
     if (uploadProgress != null) return buildUploadProgressIndicator(uploadProgress);
     return ElevatedButton(
       onPressed: onUploadUpdateTap,

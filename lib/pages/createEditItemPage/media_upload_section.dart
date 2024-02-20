@@ -27,7 +27,7 @@ class MediaUploadSection extends ConsumerWidget {
   }
 
   buildPreview(WidgetRef ref) {
-    CreateGalleryItemPageState state = ref.watch(createGalleryItemPageProvider(toEditId));
+    CreateEditGalleryItemPageState state = ref.watch(createEditItemPageProvider(toEditId));
     final String? uri = state.selectedFile?.path ?? state.itemToEdit?.publicUrl;
 
     if (uri == null) return const Card(child: Center(child: Text('Tap to select media')));
@@ -41,9 +41,9 @@ class MediaUploadSection extends ConsumerWidget {
         await showModalBottomSheet<GalleryItemType>(context: context, builder: (BuildContext context) => const MediaTypePicker());
     if (selectedMediaType == null) return;
     if (selectedMediaType == GalleryItemType.image) {
-      ref.read(createGalleryItemPageProvider(toEditId).notifier).getImage();
+      ref.read(createEditItemPageProvider(toEditId).notifier).getImage();
     } else {
-      ref.read(createGalleryItemPageProvider(toEditId).notifier).getVideo();
+      ref.read(createEditItemPageProvider(toEditId).notifier).getVideo();
     }
   }
 }

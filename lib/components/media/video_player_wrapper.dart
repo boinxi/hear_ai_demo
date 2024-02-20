@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hear_ai_demo/state/providers.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerWrapper extends ConsumerStatefulWidget {

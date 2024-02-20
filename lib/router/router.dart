@@ -28,4 +28,4 @@ final router = GoRouter(
       },
     ),
   ],
-); // TODO: add 404 page and error page
+);

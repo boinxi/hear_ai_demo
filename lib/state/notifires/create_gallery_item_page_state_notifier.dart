@@ -9,10 +9,10 @@ import 'package:hear_ai_demo/state/providers.dart';
 import 'package:hear_ai_demo/state/state/create_edit_page_state.dart';
 import 'package:image_picker/image_picker.dart';
 
-class CreateEditItemPageStateNotifier extends StateNotifier<CreateGalleryItemPageState> {
+class CreateEditItemPageStateNotifier extends StateNotifier<CreateEditGalleryItemPageState> {
   final StorageBucket _storageBucket;
 
-  CreateEditItemPageStateNotifier(this._storageBucket, GalleryItem? itemToEdit) : super(CreateGalleryItemPageState(TextEditingController())) {
+  CreateEditItemPageStateNotifier(this._storageBucket, GalleryItem? itemToEdit) : super(CreateEditGalleryItemPageState(TextEditingController())) {
     if (itemToEdit != null) loadItemToEdit(itemToEdit);
   }
 
